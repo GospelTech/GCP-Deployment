@@ -1,0 +1,41 @@
+# Default values for gospel-installer.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+frontendImage:
+  registry: gcr.io/gospel-technology-public/gospel
+  repo: gospel-installer-frontend
+  tag: latest
+
+backendImage:
+  registry: gcr.io/gospel-technology-public/gospel
+  repo: gospel-installer-backend
+  tag: latest
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+frontendService:
+  type: LoadBalancer
+  port: 80
+  protocol: TCP
+
+ingress:
+  enabled: false
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths: []
+
+  tls: []
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

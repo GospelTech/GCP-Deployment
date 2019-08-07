@@ -1,0 +1,49 @@
+applicationApiVersion: v1beta1
+properties:
+  name:
+    type: string
+    default: gospel-installer
+    x-google-marketplace:
+      type: NAME
+  namespace:
+    type: string
+    default: gospel
+    x-google-marketplace:
+      type: NAMESPACE
+  controller.serviceAccount:
+    type: string
+    title: Gospel Installer Service Account
+    description: Service account to assign to Gospel Installer
+    default: gospel-installer-service-account
+    x-google-marketplace:
+      type: SERVICE_ACCOUNT
+      serviceAccount:
+        roles:
+          - type: ClusterRole
+            rulesType: PREDEFINED
+            rulesFromRoleName: cluster-admin
+    frontendImage:
+      type: string
+      default: gcr.io/gospel-technology-public/gospel/gospel-installer-frontend:1.0
+      x-google-marketplace:
+        type: IMAGE
+        image:
+          generatedProperties:
+            splitToRegistryRepoTag:
+              registry: frontend.image.registry
+              repo: frontend.image.repository
+              tag: frontend.image.tag
+    backendImage:
+      type: string
+      default: gcr.io/gospel-technology-public/gospel/gospel-installer-backend:1.0
+      x-google-marketplace:
+        type: IMAGE
+        image:
+          generatedProperties:
+            splitToRegistryRepoTag:
+              registry: backend.image.registry
+              repo: backend.image.repository
+              tag: backend.image.tag
+required:
+  - name
+  - namespace

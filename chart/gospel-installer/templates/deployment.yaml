@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "gospel-installer.fullname" . }}
+  labels:
+{{ include "gospel-installer.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "gospel-installer.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "gospel-installer.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}-frontend
+          image: "{{ .Values.frontendImage.registry }}/{{ .Values.frontendImage.repo }}:{{ .Values.frontendImage.tag }}"
+          imagePullPolicy: Always
+          ports:
+            - name: installer-front
+              containerPort: 80
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+        - name: {{ .Chart.Name }}-backend
+          image: "{{ .Values.backendImage.registry }}/{{ .Values.backendImage.repo }}:{{ .Values.backendImage.tag }}"
+          imagePullPolicy: Always
+          ports:
+            - name: installer-back
+              containerPort: 8080
+              protocol: TCP
+          env:
+          - name: NAMESPACE
+            value: {{.Release.Namespace}}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      serviceAccountName: {{ .Values.controller.serviceAccount }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
