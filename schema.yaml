@@ -24,7 +24,7 @@ properties:
             rulesFromRoleName: cluster-admin
     frontendImage:
       type: string
-      default: gcr.io/gospel-technology-public/gospel/gospel-installer-frontend:1.0
+      default: gcr.io/gospel-technology-public/gospel-technologies-gcp/gospel-installer-frontend:1.0
       x-google-marketplace:
         type: IMAGE
         image:
@@ -35,7 +35,7 @@ properties:
               tag: frontend.image.tag
     backendImage:
       type: string
-      default: gcr.io/gospel-technology-public/gospel/gospel-installer-backend:1.0
+      default: gcr.io/gospel-technology-public/gospel-technologies-gcp/gospel-installer-backend:1.0
       x-google-marketplace:
         type: IMAGE
         image:
