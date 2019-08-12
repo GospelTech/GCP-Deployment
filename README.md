@@ -9,31 +9,31 @@ A LedgerNode is a Kubernetes deployment consisting of multiple containers that c
 Gospel Components
 -----------------
 
-#####LedgerNodes
+####LedgerNodes
 
 LedgerNode is the name given to a Gospel deployment with one or more of the components below. A LedgerNode typically contains a Peer, a CA and an Orderer.
 
-#####Peers
+####Peers
 
 Peers are the core part of Gospel that, together with the Orderer, form the private, permissioned blockchain. The peers participate actively in the blockchain to create consensus on transactions. They store data (blockchain) and the data access rules (chaincode) in Gospel.
 
-#####Orderer
+####Orderer
 
 The orderer ensures that transactions are processed in the same sequence to maintain the integrity of the network. In other words, the Orderer outputs the same messages to all connected peers in the same logical order.
 
-#####Certificate Authority (CA)
+####Certificate Authority (CA)
 
 The Gospel CA is used to authenticate end users to Gospel. Once a user has completed the authentication process, they are provided with a certificate that is used to validate their transactions for the session. The CA supports many plugins for authentication, authorisation and assurance.
 
-#####Nginx
+####Nginx
 
 Nginx has two purposes. When a user first connects, Nginx is a reverse proxy that will send them to their intended destination. This could be the Gospel backend or CA. Where a user is connecting to the Gospel administration UI, Nginx will also serve this to the browser.
 
-#####Backend
+####Backend
 
 The backend is a middleware component within Gospel. It is the endpoint for API connections and its purpose is to send transactions to read/write data through the Gospel process on behalf of an authenticated user.
 
-#####Keystore
+####Keystore
 
 The keystore is a required component of Gospel and is part of the secure process to enforce consensus on reads. This component runs outside of LedgerNode and is deployed for each multi-tenant namespace. It is a lightweight Go application that runs on a VM or Kubernetes Pod. The specific details of this module are patent pending.
 
