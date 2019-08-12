@@ -22,28 +22,16 @@ properties:
           - type: ClusterRole
             rulesType: PREDEFINED
             rulesFromRoleName: cluster-admin
-    frontendImage:
+    frontend.image:
       type: string
-      default: gcr.io/gospel-technology-public/gospel-technologies-gcp/gospel-installer-frontend:1.0
+      default: "$REGISTRY/gospel-installer-frontend:$TAG"
       x-google-marketplace:
         type: IMAGE
-        image:
-          generatedProperties:
-            splitToRegistryRepoTag:
-              registry: frontend.image.registry
-              repo: frontend.image.repository
-              tag: frontend.image.tag
-    backendImage:
+    backend.image:
       type: string
-      default: gcr.io/gospel-technology-public/gospel-technologies-gcp/gospel-installer-backend:1.0
+      default: "$REGISTRY/gospel-installer-backend:$TAG"
       x-google-marketplace:
         type: IMAGE
-        image:
-          generatedProperties:
-            splitToRegistryRepoTag:
-              registry: backend.image.registry
-              repo: backend.image.repository
-              tag: backend.image.tag
 required:
   - name
   - namespace

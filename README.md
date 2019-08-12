@@ -140,11 +140,24 @@ cd GCP-Deployment
 
 Choose an instance name and
 [namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
-for the application. In most cases, you can use the `default` namespace.
+for the application. In most cases, you can use the `default` namespace, but in case you want to segregate it off from anything else in your Kubernetes cluster, we suggest `gospel`.
 
 ```shell
 export APP_INSTANCE_NAME=gospel-installer-1
 export NAMESPACE=gospel
+```
+
+Configure container images:
+```shell
+TAG=1.0
+export FRONTEND_IMAGE="marketplace.gcr.io/gospel-technologies-gcp/gospel-installer-frontend:${TAG}"
+export BACKEND_IMAGE="marketplace.gcr.io/gospel-technologies-gcp/gospel-installer-backend:${TAG}"
+```
+
+Specify a service account name:
+This account will be used to configure your Gospel cluster
+```
+export INSTALLER_SERVICE_ACCOUNT="${APP_INSTANCE_NAME}-sa"
 ```
 
 #### Expand the manifest template
@@ -154,9 +167,11 @@ expanded manifest file for future updates to the application.
 
 ```shell
 helm template chart/gospel-installer \
---name="$APP_INSTANCE_NAME" \
---namespace="$NAMESPACE" \
-> ${APP_INSTANCE_NAME}_manifest.yaml
+  --name $APP_INSTANCE_NAME \ 
+  --namespace $NAMESPACE \
+  --set frontend.image=$FRONTEND_IMAGE \
+  --set backend.image=$BACKEND_IMAGE \
+  --set controller.serviceAccount=$INSTALLER_SERVICE_ACCOUNT > "${APP_INSTANCE_NAME}_manifest.yaml"
 ```
 
 #### Apply the manifest to your Kubernetes cluster
@@ -231,7 +246,7 @@ Set your installation name and Kubernetes namespace:
 
 ```shell
 export APP_INSTANCE_NAME=gospel-installer-1
-export NAMESPACE=default
+export NAMESPACE=gospel
 ```
 
 ### Delete the resources

@@ -22,7 +22,7 @@ spec:
     {{- end }}
       containers:
         - name: {{ .Chart.Name }}-frontend
-          image: "{{ .Values.frontendImage.registry }}/{{ .Values.frontendImage.repo }}:{{ .Values.frontendImage.tag }}"
+          image: "{{ .Values.frontend.image }}"
           imagePullPolicy: Always
           ports:
             - name: installer-front
@@ -31,7 +31,7 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
         - name: {{ .Chart.Name }}-backend
-          image: "{{ .Values.backendImage.registry }}/{{ .Values.backendImage.repo }}:{{ .Values.backendImage.tag }}"
+          image: "{{ .Values.backend.image }}"
           imagePullPolicy: Always
           ports:
             - name: installer-back

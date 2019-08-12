@@ -4,15 +4,11 @@
 
 replicaCount: 1
 
-frontendImage:
-  registry: "gcr.io/gospel-technology-public/gospel-technologies-gcp"
-  repo: "gospel-installer-frontend"
-  tag: "1.0"
+frontend:
+  image: null
 
-backendImage:
-  registry: "gcr.io/gospel-technology-public/gospel-technologies-gcp"
-  repo: "gospel-installer-backend"
-  tag: "1.0"
+backend:
+  image: null
 
 imagePullSecrets: []
 nameOverride: ""
