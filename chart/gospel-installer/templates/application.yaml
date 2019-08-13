@@ -11,7 +11,12 @@ metadata:
 spec:
   descriptor:
     type: gospel-installer
-    version: 1.0
+    version: '1.0'
+    description: |-
+      The Gospel Platform™ is the first secure distributed database that allows organisations to safely share sensitive information, both within and beyond their perimeter, while maintaining complete control.
+    links:
+      - description: 'User Guide: How to deploy Gospel'
+        url: https://github.com/GospelTech/GCP-Deployment/blob/master/README.md
   selector:
     matchLabels:
       app.kubernetes.io/name: "{{ .Release.Name }}"
