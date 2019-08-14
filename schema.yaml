@@ -32,7 +32,7 @@ properties:
           base64EncodedCertificate: tls.base64EncodedCertificate
   publicIp.available:
     type: boolean
-    default: 'false'
+    default: false
     x-google-marketplace:
       type: INGRESS_AVAILABLE
   frontend.image:
