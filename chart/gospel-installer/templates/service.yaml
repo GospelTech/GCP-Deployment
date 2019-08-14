@@ -5,12 +5,20 @@ metadata:
   labels:
 {{ include "gospel-installer.labels" . | indent 4 }}
 spec:
-  type: {{ .Values.frontendService.type }}
   ports:
-    - port: {{ .Values.frontendService.port }}
+    - name: {{.Chart.Name}}-frontend-http
+      port: {{ .Values.frontendService.httpPort }}
       targetPort: 80
       protocol: TCP
-      name: {{ .Chart.Name }}-frontend
+    - name: {{.Chart.Name}}-frontend-https
+      port: {{ .Values.frontendService.httpsPort }}
+      targetPort: 443
+      protocol: TCP
   selector:
     app.kubernetes.io/name: {{ include "gospel-installer.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
+  {{ if .Values.publicIp.available }}
+  type: LoadBalancer
+  {{ else }}
+  type: ClusterIP
+  {{ end }}

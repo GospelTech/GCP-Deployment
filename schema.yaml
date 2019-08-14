@@ -22,6 +22,19 @@ properties:
           - type: ClusterRole
             rulesType: PREDEFINED
             rulesFromRoleName: cluster-admin
+  certificate:
+    type: string
+    x-google-marketplace:
+      type: TLS_CERTIFICATE
+      tlsCertificate:
+        generatedProperties:
+          base64EncodedPrivateKey: tls.base64EncodedPrivateKey
+          base64EncodedCertificate: tls.base64EncodedCertificate
+  publicIp.available:
+    type: boolean
+    default: 'false'
+    x-google-marketplace:
+      type: INGRESS_AVAILABLE
   frontend.image:
     type: string
     default: gcr.io/gospel-technology-public/gospel-technologies-gcp/gospel-installer-frontend:1.0

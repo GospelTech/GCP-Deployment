@@ -16,20 +16,25 @@ spec:
         app.kubernetes.io/name: {{ include "gospel-installer.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
-    {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
       containers:
         - name: {{ .Chart.Name }}-frontend
           image: "{{ .Values.frontend.image }}"
           imagePullPolicy: Always
           ports:
-            - name: installer-front
+            - name: frontend-http
               containerPort: 80
               protocol: TCP
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            - name: frontend-https
+              containerPort: 443
+              protocol: TCP
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/conf.d/nginx.conf
+              subPath: nginx.conf
+              readOnly: true
+            - name: certs
+              mountPath: /etc/nginx/certs
+              readOnly: true
         - name: {{ .Chart.Name }}-backend
           image: "{{ .Values.backend.image }}"
           imagePullPolicy: Always
@@ -40,18 +45,11 @@ spec:
           env:
           - name: NAMESPACE
             value: {{.Release.Namespace}}
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
       serviceAccountName: {{ .Values.controller.serviceAccount }}
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-    {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
-    {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
+      volumes:
+        - name: certs
+          secret:
+            secretName: {{.Release.Name}}-frontend-secret
+        - name: nginx-config
+          configMap:
+            name: {{.Release.Name}}-frontend-configmap
