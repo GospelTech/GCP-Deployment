@@ -11,7 +11,7 @@ metadata:
 spec:
   descriptor:
     type: gospel-installer
-    version: '1.0.0'
+    version: '1.0'
     description: |-
       The Gospel Platform™ is the first secure distributed database that allows organisations to safely share sensitive information, both within and beyond their perimeter, while maintaining complete control.
     links:
