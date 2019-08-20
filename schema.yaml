@@ -37,7 +37,7 @@ properties:
       type: INGRESS_AVAILABLE
   frontend.image:
     type: string
-    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/gospel-installer-frontend:1.0
+    default: gcr.io/gospel-technology-public/gospel-technologies-gcp:1.0
     x-google-marketplace:
       type: IMAGE
   backend.image:
