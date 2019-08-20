@@ -197,7 +197,7 @@ To view the installer, open the URL in your browser.
 By default, the application is not exposed externally. To get access to the Gospel UI, run the following command:
 
 ```bash
-kubectl port-forward --namespace $NAMESPACE svc/$APP_NAME-gospel-installer	
+kubectl port-forward --namespace $NAMESPACE svc/$APP_INSTANCE_NAME-gospel-installer	
  8080:80
 ```
 

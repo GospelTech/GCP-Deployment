@@ -45,6 +45,66 @@ properties:
     default: gcr.io/gospel-technology-public/gospel-technologies-gcp/gospel-installer-backend:1.0
     x-google-marketplace:
       type: IMAGE
+  chaincode.image:
+    type: string
+    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/chaincode:v4.5.45
+    x-google-marketplace:
+      type: IMAGE
+  dataimporter.image:
+    type: string
+    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/dataimporter:latest
+    x-google-marketplace:
+      type: IMAGE
+  endorsing-peer.image:
+    type: string
+    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/endorsing-peer:v4.5
+    x-google-marketplace:
+      type: IMAGE
+  gospel-backend.image:
+    type: string
+    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/gospel-backend:v4.5
+    x-google-marketplace:
+      type: IMAGE
+  keystore.image:
+    type: string
+    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/keystore:v4.5
+    x-google-marketplace:
+      type: IMAGE
+  nginx.image:
+    type: string
+    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/nginx:v4.5
+    x-google-marketplace:
+      type: IMAGE
+  orchestrator.image:
+    type: string
+    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/ca-orchestrator:v4.5
+    x-google-marketplace:
+      type: IMAGE
+  orderer.image:
+    type: string
+    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/orderer:v4.5
+    x-google-marketplace:
+      type: IMAGE
+  signer.image:
+    type: string
+    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/ca-signer:v4.5
+    x-google-marketplace:
+      type: IMAGE
+  soas.image:
+    type: string
+    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/ca-soas:v4.5
+    x-google-marketplace:
+      type: IMAGE
+  soau.image:
+    type: string
+    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/ca-soau:v4.5
+    x-google-marketplace:
+      type: IMAGE
+  soi.image:
+    type: string
+    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/ca-soi:v4.5
+    x-google-marketplace:
+      type: IMAGE
 required:
   - name
   - namespace
