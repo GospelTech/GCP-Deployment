@@ -31,3 +31,5 @@ spec:
       kind: Secret
     - group: v1
       kind: ConfigMap
+    - group: apps/v1
+      kind: DaemonSet
