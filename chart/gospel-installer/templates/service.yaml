@@ -17,6 +17,7 @@ spec:
   selector:
     app.kubernetes.io/name: {{ include "gospel-installer.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
+    app: deployer
   {{ if .Values.publicIp.available }}
   type: LoadBalancer
   {{ else }}
