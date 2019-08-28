@@ -17,7 +17,7 @@
 set -xeo pipefail
 shopt -s nullglob
 
-EXTERNAL_IP="${APP_INSTANCE_NAME}-gospel-installer"
+EXTERNAL_IP="${APP_INSTANCE_NAME}-gospel-technology"
 
 for test in /tests/*; do
   testrunner -logtostderr "--test_spec=${test}"
