@@ -42,7 +42,7 @@ spec:
               protocol: TCP
           env:
           - name: APP_K8S_NAME
-            value: {{ include "gospel-technology.name" . }}
+            value: {{ .Release.Name }}
           - name: APP_K8S_INSTANCE
             value: {{ .Release.Name }}
           - name: NAMESPACE
