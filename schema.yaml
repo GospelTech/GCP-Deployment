@@ -2,7 +2,7 @@ applicationApiVersion: v1beta1
 properties:
   name:
     type: string
-    default: gospel-installer
+    default: gospel-technologies-gcp
     x-google-marketplace:
       type: NAME
   namespace:
