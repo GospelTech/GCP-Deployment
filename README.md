@@ -150,8 +150,8 @@ export NAMESPACE=gospel
 Configure container images:
 ```shell
 TAG=1.0
-export FRONTEND_IMAGE="marketplace.gcr.io/gospel-technologies-gcp/gospel-technology-frontend:${TAG}"
-export BACKEND_IMAGE="marketplace.gcr.io/gospel-technologies-gcp/gospel-technology-backend:${TAG}"
+export FRONTEND_IMAGE="marketplace.gcr.io/gospel-technologies-gcp/gospel-installer-frontend:${TAG}"
+export BACKEND_IMAGE="marketplace.gcr.io/gospel-technologies-gcp/gospel-installer-backend:${TAG}"
 ```
 
 Specify a service account name:
