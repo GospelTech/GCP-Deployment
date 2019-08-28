@@ -143,15 +143,15 @@ Choose an instance name and
 for the application. In most cases, you can use the `default` namespace, but in case you want to segregate it off from anything else in your Kubernetes cluster, we suggest `gospel`.
 
 ```shell
-export APP_INSTANCE_NAME=gospel-installer-1
+export APP_INSTANCE_NAME=gospel-technology-1
 export NAMESPACE=gospel
 ```
 
 Configure container images:
 ```shell
 TAG=1.0
-export FRONTEND_IMAGE="marketplace.gcr.io/gospel-technologies-gcp/gospel-installer-frontend:${TAG}"
-export BACKEND_IMAGE="marketplace.gcr.io/gospel-technologies-gcp/gospel-installer-backend:${TAG}"
+export FRONTEND_IMAGE="marketplace.gcr.io/gospel-technologies-gcp/gospel-technology-frontend:${TAG}"
+export BACKEND_IMAGE="marketplace.gcr.io/gospel-technologies-gcp/gospel-technology-backend:${TAG}"
 ```
 
 Specify a service account name:
@@ -166,7 +166,7 @@ Use `helm template` to expand the template. We recommend that you save the
 expanded manifest file for future updates to the application.
 
 ```shell
-helm template chart/gospel-installer \
+helm template chart/gospel-technology \
   --name $APP_INSTANCE_NAME \ 
   --namespace $NAMESPACE \
   --set frontend.image=$FRONTEND_IMAGE \
@@ -197,7 +197,7 @@ To view the installer, open the URL in your browser.
 By default, the application is not exposed externally. To get access to the Gospel UI, run the following command:
 
 ```bash
-kubectl port-forward --namespace $NAMESPACE svc/$APP_INSTANCE_NAME-gospel-installer	
+kubectl port-forward --namespace $NAMESPACE svc/$APP_INSTANCE_NAME-gospel-technology	
  8080:80
 ```
 
@@ -237,7 +237,7 @@ Please contact your Gospel account manager for more details on the release cycle
 
 1. In the GCP Console, open [Kubernetes Applications](https://console.cloud.google.com/kubernetes/application).
 
-1. From the list of applications, click **gospel-installer-1**.
+1. From the list of applications, click **gospel-technology-1**.
 
 1. On the Application Details page, click **Delete**.
 
@@ -248,7 +248,7 @@ Please contact your Gospel account manager for more details on the release cycle
 Set your installation name and Kubernetes namespace:
 
 ```shell
-export APP_INSTANCE_NAME=gospel-installer-1
+export APP_INSTANCE_NAME=gospel-technology-1
 export NAMESPACE=gospel
 ```
 
