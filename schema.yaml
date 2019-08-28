@@ -2,7 +2,7 @@ applicationApiVersion: v1beta1
 properties:
   name:
     type: string
-    default: gospel-technologies-gcp
+    default: gospel-technology
     x-google-marketplace:
       type: NAME
   namespace:
@@ -14,7 +14,7 @@ properties:
     type: string
     title: Gospel Installer Service Account
     description: Service account to assign to Gospel Installer
-    default: gospel-installer-service-account
+    default: gospel-technology-service-account
     x-google-marketplace:
       type: SERVICE_ACCOUNT
       serviceAccount:

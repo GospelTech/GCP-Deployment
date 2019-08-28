@@ -2,7 +2,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "gospel-installer.name" -}}
+{{- define "gospel-technology.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -11,7 +11,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "gospel-installer.fullname" -}}
+{{- define "gospel-technology.fullname" -}}
 {{- if .Values.fullnameOverride -}}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
@@ -27,17 +27,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "gospel-installer.chart" -}}
+{{- define "gospel-technology.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Common labels
 */}}
-{{- define "gospel-installer.labels" -}}
-app.kubernetes.io/name: {{ include "gospel-installer.name" . }}
-helm.sh/chart: {{ include "gospel-installer.chart" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
+{{- define "gospel-technology.labels" -}}
+app.kubernetes.io/name: {{ .Release.name }}
+helm.sh/chart: {{ include "gospel-technology.chart" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}

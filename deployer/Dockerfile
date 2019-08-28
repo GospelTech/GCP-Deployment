@@ -4,12 +4,12 @@ FROM marketplace.gcr.io/google/debian9 AS build
 RUN apt-get update \
     && apt-get install -y --no-install-recommends gettext
 
-ADD chart/gospel-installer /tmp/chart
-RUN cd /tmp && tar -czvf /tmp/gospel-installer.tar.gz chart
+ADD chart/gospel-technology /tmp/chart
+RUN cd /tmp && tar -czvf /tmp/gospel-technology.tar.gz chart
 
-ADD apptest/deployer/gospel-installer /tmp/test/chart
+ADD apptest/deployer/gospel-technology /tmp/test/chart
 RUN cd /tmp/test \
-    && tar -czvf /tmp/test/gospel-installer.tar.gz chart/
+    && tar -czvf /tmp/test/gospel-technology.tar.gz chart/
 
 ADD schema.yaml /tmp/schema.yaml
 
@@ -28,7 +28,7 @@ RUN cat /tmp/apptest/schema.yaml \
     && mv /tmp/apptest/schema.yaml.new /tmp/apptest/schema.yaml
 
 FROM gcr.io/cloud-marketplace-tools/k8s/deployer_helm:$MARKETPLACE_TOOLS_TAG
-COPY --from=build /tmp/gospel-installer.tar.gz /data/chart/
-COPY --from=build /tmp/test/gospel-installer.tar.gz /data-test/chart/
+COPY --from=build /tmp/gospel-technology.tar.gz /data/chart/
+COPY --from=build /tmp/test/gospel-technology.tar.gz /data-test/chart/
 COPY --from=build /tmp/apptest/schema.yaml /data-test/
 COPY --from=build /tmp/schema.yaml /data/

@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-frontend-configmap
   labels:
-{{ include "gospel-installer.labels" . | indent 4 }}
+{{ include "gospel-technology.labels" . | indent 4 }}
 data:
   nginx.conf: |
 

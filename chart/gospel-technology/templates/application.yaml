@@ -7,10 +7,10 @@ metadata:
   name: "{{ .Release.Name }}"
   namespace: "{{ .Release.Namespace }}"
   labels:
-    app.kubernetes.io/name: "{{ .Release.Name }}"
+{{ include "gospel-technology.labels" . | indent 4 }}
 spec:
   descriptor:
-    type: gospel-installer
+    type: gospel-technology
     version: '1.0'
     description: |-
       The Gospel Platform™ is the first secure distributed database that allows organisations to safely share sensitive information, both within and beyond their perimeter, while maintaining complete control.
@@ -19,7 +19,7 @@ spec:
         url: https://github.com/GospelTech/GCP-Deployment/blob/master/README.md
   selector:
     matchLabels:
-      app.kubernetes.io/name: "{{ .Release.Name }}"
+{{ include "gospel-technology.labels" . | indent 6 }}
   componentKinds:
     - group: batch/v1
       kind: Job

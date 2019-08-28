@@ -1,20 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "gospel-installer.fullname" . }}
+  name: {{ include "gospel-technology.fullname" . }}
   labels:
-{{ include "gospel-installer.labels" . | indent 4 }}
+{{ include "gospel-technology.labels" . | indent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "gospel-installer.name" . }}
-      app.kubernetes.io/instance: {{ .Release.Name }}
+{{ include "gospel-technology.labels" . | indent 6 }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "gospel-installer.name" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
+{{ include "gospel-technology.labels" . | indent 8 }}
     spec:
       containers:
         - name: {{ .Chart.Name }}-frontend
@@ -44,7 +42,7 @@ spec:
               protocol: TCP
           env:
           - name: APP_K8S_NAME
-            value: {{ include "gospel-installer.name" . }}
+            value: {{ include "gospel-technology.name" . }}
           - name: APP_K8S_INSTANCE
             value: {{ .Release.Name }}
           - name: NAMESPACE
