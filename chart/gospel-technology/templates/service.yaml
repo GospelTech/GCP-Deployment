@@ -15,8 +15,7 @@ spec:
       targetPort: 443
       protocol: TCP
   selector:
-    app.kubernetes.io/name: {{ include "gospel-technology.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ include "gospel-technology.labels" . | indent 4 }}
   {{ if .Values.publicIp.available }}
   type: LoadBalancer
   {{ else }}

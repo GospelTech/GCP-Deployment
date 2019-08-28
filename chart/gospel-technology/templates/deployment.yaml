@@ -8,13 +8,11 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "gospel-technology.name" . }}
-      app.kubernetes.io/instance: {{ .Release.Name }}
+{{ include "gospel-technology.labels" . | indent 6 }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "gospel-technology.name" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
+{{ include "gospel-technology.labels" . | indent 8 }}
     spec:
       containers:
         - name: {{ .Chart.Name }}-frontend
