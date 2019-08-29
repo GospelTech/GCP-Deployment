@@ -35,7 +35,7 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "gospel-technology.labels" -}}
-app.kubernetes.io/name: {{ .Release.name }}
+app.kubernetes.io/name: "{{ .Release.Name }}"
 helm.sh/chart: {{ include "gospel-technology.chart" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}

@@ -19,7 +19,7 @@ spec:
         url: https://github.com/GospelTech/GCP-Deployment/blob/master/README.md
   selector:
     matchLabels:
-{{ include "gospel-technology.labels" . | indent 6 }}
+      app.kubernetes.io/name: "{{ .Release.Name }}"
   componentKinds:
     - group: batch/v1
       kind: Job
