@@ -37,12 +37,12 @@ properties:
       type: INGRESS_AVAILABLE
   frontend.image:
     type: string
-    default: gcr.io/gospel-technology-public/gospel-technologies-gcp:4.5.1
+    default: gcr.io/gospel-technology-public/gospel-technologies-gcp:4.5
     x-google-marketplace:
       type: IMAGE
   backend.image:
     type: string
-    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/gospel-installer-backend:4.5.1
+    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/gospel-installer-backend:4.5
     x-google-marketplace:
       type: IMAGE
   chaincode.image:
