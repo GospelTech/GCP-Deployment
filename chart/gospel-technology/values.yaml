@@ -2,6 +2,31 @@ frontend:
   image: null
 backend:
   image: null
+chaincode:
+  image: null
+dataImporter:
+  image: null
+endorsingPeer:
+  image: null
+gospelBackend:
+  image: null
+keystore:
+  image: null
+nginx:
+  image: null
+orchestrator:
+  image: null
+orderer:
+  image: null
+signer:
+  image: null
+soas:
+  image: null
+soau:
+  image: null
+soi:
+  image: null
+
 frontendService:
   type: NodePort
   httpPort: 80

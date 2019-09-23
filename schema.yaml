@@ -50,17 +50,17 @@ properties:
     default: gcr.io/gospel-technology-public/gospel-technologies-gcp/chaincode:4.5.45
     x-google-marketplace:
       type: IMAGE
-  dataimporter.image:
+  dataImporter.image:
     type: string
     default: gcr.io/gospel-technology-public/gospel-technologies-gcp/dataimporter:4.5
     x-google-marketplace:
       type: IMAGE
-  endorsing-peer.image:
+  endorsingPeer.image:
     type: string
     default: gcr.io/gospel-technology-public/gospel-technologies-gcp/endorsing-peer:4.5
     x-google-marketplace:
       type: IMAGE
-  gospel-backend.image:
+  gospelBackend.image:
     type: string
     default: gcr.io/gospel-technology-public/gospel-technologies-gcp/gospel-backend:4.5
     x-google-marketplace:

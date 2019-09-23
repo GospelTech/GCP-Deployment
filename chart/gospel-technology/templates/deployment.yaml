@@ -47,6 +47,30 @@ spec:
             value: {{ .Release.Name }}
           - name: NAMESPACE
             value: {{.Release.Namespace}}
+          - name: CHAINCODE_IMAGE
+            value: "{{ .Values.chaincode.image }}"
+          - name: DATAIMPORTER_IMAGE
+            value: "{{ .Values.dataImporter.image }}"
+          - name: ENDORSING_PEER_IMAGE
+            value: "{{ .Values.endorsingPeer.image }}"
+          - name: GOSPEL_BACKEND_IMAGE
+            value: "{{ .Values.gospelBackend.image }}"
+          - name: KEYSTORE_IMAGE
+            value: "{{ .Values.keystore.image }}"
+          - name: NGINX_IMAGE
+            value: "{{ .Values.nginx.image }}"
+          - name: ORCHESTRATOR_IMAGE
+            value: "{{ .Values.orchestrator.image }}"
+          - name: ORDERER_IMAGE
+            value: "{{ .Values.orderer.image }}"
+          - name: SIGNER_IMAGE
+            value: "{{ .Values.signer.image }}"
+          - name: SOAS_IMAGE
+            value: "{{ .Values.soas.image }}"
+          - name: SOAU_IMAGE
+            value: "{{ .Values.soau.image }}"
+          - name: SOI_IMAGE
+            value: "{{ .Values.soi.image }}"
       serviceAccountName: {{ .Values.controller.serviceAccount }}
       volumes:
         - name: certs
