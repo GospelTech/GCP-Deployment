@@ -37,72 +37,72 @@ properties:
       type: INGRESS_AVAILABLE
   frontend.image:
     type: string
-    default: gcr.io/gospel-technology-public/gospel-technologies-gcp:4.5
+    default: $REGISTRY:$TAG
     x-google-marketplace:
       type: IMAGE
   backend.image:
     type: string
-    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/gospel-installer-backend:4.5
+    default: $REGISTRY/gospel-installer-backend:$TAG
     x-google-marketplace:
       type: IMAGE
   chaincode.image:
     type: string
-    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/chaincode:4.5.45
+    default: $REGISTRY/chaincode:$TAG
     x-google-marketplace:
       type: IMAGE
   dataImporter.image:
     type: string
-    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/dataimporter:4.5
+    default: $REGISTRY/dataimporter:$TAG
     x-google-marketplace:
       type: IMAGE
   endorsingPeer.image:
     type: string
-    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/endorsing-peer:4.5
+    default: $REGISTRY/endorsing-peer:$TAG
     x-google-marketplace:
       type: IMAGE
   gospelBackend.image:
     type: string
-    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/gospel-backend:4.5
+    default: $REGISTRY/gospel-backend:$TAG
     x-google-marketplace:
       type: IMAGE
   keystore.image:
     type: string
-    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/keystore:4.5
+    default: $REGISTRY/keystore:$TAG
     x-google-marketplace:
       type: IMAGE
   nginx.image:
     type: string
-    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/nginx:4.5
+    default: $REGISTRY/nginx:$TAG
     x-google-marketplace:
       type: IMAGE
   orchestrator.image:
     type: string
-    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/ca-orchestrator:4.5
+    default: $REGISTRYca-orchestrator:$TAG
     x-google-marketplace:
       type: IMAGE
   orderer.image:
     type: string
-    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/orderer:4.5
+    default: $REGISTRY/orderer:$TAG
     x-google-marketplace:
       type: IMAGE
   signer.image:
     type: string
-    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/ca-signer:4.5
+    default: $REGISTRY/ca-signer:$TAG
     x-google-marketplace:
       type: IMAGE
   soas.image:
     type: string
-    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/ca-soas:4.5
+    default: $REGISTRY/ca-soas:$TAG
     x-google-marketplace:
       type: IMAGE
   soau.image:
     type: string
-    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/ca-soau:4.5
+    default: $REGISTRY/ca-soau:$TAG
     x-google-marketplace:
       type: IMAGE
   soi.image:
     type: string
-    default: gcr.io/gospel-technology-public/gospel-technologies-gcp/ca-soi:4.5
+    default: $REGISTRY/ca-soi:$TAG
     x-google-marketplace:
       type: IMAGE
 required:
