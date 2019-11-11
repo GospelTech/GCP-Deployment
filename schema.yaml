@@ -77,7 +77,7 @@ properties:
       type: IMAGE
   orchestrator.image:
     type: string
-    default: $REGISTRYca-orchestrator:$TAG
+    default: $REGISTRY/ca-orchestrator:$TAG
     x-google-marketplace:
       type: IMAGE
   orderer.image:
