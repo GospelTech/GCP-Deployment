@@ -36,7 +36,7 @@ tls:
   base64EncodedPrivateKey: null
   base64EncodedCertificate: null
 publicIp:
-  available: null
+  available: true
 
-controller:
+installer:
   serviceAccount: null

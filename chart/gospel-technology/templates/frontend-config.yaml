@@ -3,11 +3,10 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-frontend-configmap
   labels:
-{{ include "gospel-technology.labels" . | indent 4 }}
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/component: gospel-installer
 data:
   nginx.conf: |
-
-
     map $sent_http_content_type $expires {
       default			30d;
       application/json	off;

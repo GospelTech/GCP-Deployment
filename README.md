@@ -164,7 +164,7 @@ export ORCHESTRATOR_IMAGE="${REGISTRY}/ca-orchestrator:${TAG}"
 export ORDERER_IMAGE="${REGISTRY}/orderer:${TAG}"
 export SIGNER_IMAGE="${REGISTRY}/ca-signer:${TAG}"
 export SOAS_IMAGE="${REGISTRY}/ca-soas:${TAG}"
-export SOAU_IMAGE="${REGISTRY}p/ca-soau:${TAG}"
+export SOAU_IMAGE="${REGISTRY}/ca-soau:${TAG}"
 export SOI_IMAGE="${REGISTRY}/ca-soi:${TAG}"
 ```
 
@@ -179,6 +179,11 @@ Create the service account:
 
 ```shell script
 kubectl create serviceaccount ${INSTALLER_SERVICE_ACCOUNT} --namespace ${NAMESPACE}
+```
+
+Grant the service account permission to create API objects in your Kubernetes cluster:
+```shell script
+kubectl create clusterrolebinding gospel-installer-role-binding --clusterrole=cluster-admin --serviceaccount=${NAMESPACE}:${INSTALLER_SERVICE_ACCOUNT}
 ```
 
 #### Expand the manifest template

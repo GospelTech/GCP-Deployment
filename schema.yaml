@@ -10,7 +10,7 @@ properties:
     default: gospel
     x-google-marketplace:
       type: NAMESPACE
-  controller.serviceAccount:
+  installer.serviceAccount:
     type: string
     title: Gospel Installer Service Account
     description: Service account to assign to Gospel Installer
