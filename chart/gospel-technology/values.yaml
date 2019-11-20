@@ -37,3 +37,6 @@ tls:
   base64EncodedCertificate: null
 publicIp:
   available: null
+
+controller:
+  serviceAccount: null

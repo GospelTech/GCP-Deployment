@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args:  ['{{ include "gospel-technology.fullname" . }}:{{ .Values.frontendService.port }}']
+      args:  ['{{ include "gospel-technology.fullname" . }}:{{ .Values.frontendService.httpPort }}']
   restartPolicy: Never
