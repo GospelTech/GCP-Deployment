@@ -209,7 +209,7 @@ helm template chart/gospel-technology \
   --set soas.image=$SOAS_IMAGE \
   --set soau.image=$SOAU_IMAGE \
   --set soi.image=$SOI_IMAGE \
-  --set controller.serviceAccount=$INSTALLER_SERVICE_ACCOUNT > "${APP_INSTANCE_NAME}_manifest.yaml"
+  --set installer.serviceAccount=$INSTALLER_SERVICE_ACCOUNT > "${APP_INSTANCE_NAME}_manifest.yaml"
 ```
 
 #### Apply the manifest to your Kubernetes cluster
@@ -237,8 +237,7 @@ in the `helm template` command to ensure that the installer runs with a ClusterI
 In this scenario, to get access to the Gospel UI, run the following command:
 
 ```shell script
-kubectl port-forward --namespace $NAMESPACE svc/$APP_INSTANCE_NAME	
- 8080:80
+kubectl port-forward --namespace $NAMESPACE svc/$APP_INSTANCE_NAME 8080:80
 ```
 
 and then go to the address `127.0.0.1:8080` in your web browser.
