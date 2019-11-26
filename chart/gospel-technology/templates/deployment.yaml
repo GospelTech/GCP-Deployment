@@ -1,18 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "gospel-technology.fullname" . }}
-  labels:
-{{ include "gospel-technology.labels" . | indent 4 }}
+  name: {{ .Release.Name }}
+  labels: &InstallerDeploymentLabels
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/component: gospel-installer
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
   selector:
-    matchLabels:
-{{ include "gospel-technology.labels" . | indent 6 }}
+    matchLabels: *InstallerDeploymentLabels
   template:
     metadata:
-      labels:
-{{ include "gospel-technology.labels" . | indent 8 }}
+      labels: *InstallerDeploymentLabels
     spec:
       containers:
         - name: {{ .Chart.Name }}-frontend
@@ -25,6 +24,15 @@ spec:
             - name: frontend-https
               containerPort: 443
               protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /home
+              port: 80
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
           volumeMounts:
             - name: nginx-config
               mountPath: /etc/nginx/conf.d/nginx.conf
@@ -71,7 +79,7 @@ spec:
             value: "{{ .Values.soau.image }}"
           - name: SOI_IMAGE
             value: "{{ .Values.soi.image }}"
-      serviceAccountName: {{ .Values.controller.serviceAccount }}
+      serviceAccountName: {{ .Values.installer.serviceAccount }}
       volumes:
         - name: certs
           secret:

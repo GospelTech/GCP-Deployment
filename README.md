@@ -81,7 +81,7 @@ You'll need the following tools in your environment. If you are using Cloud Shel
 - [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
 Configure `gcloud` as a Docker credential helper:
-```shell
+```shell script
 gcloud auth configure-docker
 ```
 
@@ -90,7 +90,7 @@ gcloud auth configure-docker
 Create a cluster from the command line. If you already have a cluster that
 you want to use, this step is optional.
 
-```shell
+```shell script
 export CLUSTER=gospel-cluster
 export ZONE=us-west1-a
 
@@ -99,7 +99,7 @@ gcloud container clusters create "$CLUSTER" --zone "$ZONE"
 
 #### Configure kubectl to connect to the cluster
 
-```shell
+```shell script
 gcloud container clusters get-credentials "$CLUSTER" --zone "$ZONE"
 ```
 
@@ -107,7 +107,7 @@ gcloud container clusters get-credentials "$CLUSTER" --zone "$ZONE"
 
 Clone this repo and the associated tools repo:
 
-```shell
+```shell script
 git clone --recursive https://github.com/GospelTech/GCP-Deployment.git
 ```
 
@@ -118,7 +118,7 @@ such as Services, Deployments, and so on, that you can manage as a group.
 
 To set up your cluster to understand Application resources, run the following command:
 
-```shell
+```shell script
 kubectl apply -f "https://raw.githubusercontent.com/GoogleCloudPlatform/marketplace-k8s-app-tools/master/crd/app-crd.yaml"
 ```
 
@@ -132,7 +132,7 @@ The Application resource is defined by the
 
 Navigate to the `GCP-Deployment` directory:
 
-```shell
+```shell script
 cd GCP-Deployment
 ```
 
@@ -142,22 +142,48 @@ Choose an instance name and
 [namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
 for the application. In most cases, you can use the `default` namespace, but in case you want to segregate it off from anything else in your Kubernetes cluster, we suggest `gospel`.
 
-```shell
+```shell script
 export APP_INSTANCE_NAME=gospel-technology-1
 export NAMESPACE=gospel
 ```
 
 Configure container images:
-```shell
-TAG=1.0
-export FRONTEND_IMAGE="marketplace.gcr.io/gospel-technologies-gcp/gospel-installer-frontend:${TAG}"
-export BACKEND_IMAGE="marketplace.gcr.io/gospel-technologies-gcp/gospel-installer-backend:${TAG}"
+
+```shell script
+TAG=5.0
+REGISTRY="marketplace.gcr.io/gospel-technology/gospel-technology"
+export FRONTEND_IMAGE="${REGISTRY}:${TAG}"
+export BACKEND_IMAGE="${REGISTRY}/gospel-installer-backend:${TAG}"
+export CHAINCODE_IMAGE="${REGISTRY}/chaincode:${TAG}"
+export DATAIMPORTER_IMAGE="${REGISTRY}/dataimporter:${TAG}"
+export ENDORSING_PEER_IMAGE="${REGISTRY}/endorsing-peer:${TAG}"
+export GOSPEL_BACKEND_IMAGE="${REGISTRY}/gospel-backend:${TAG}"
+export KEYSTORE_IMAGE="${REGISTRY}/keystore:${TAG}"
+export NGINX_IMAGE="${REGISTRY}/nginx:${TAG}"
+export ORCHESTRATOR_IMAGE="${REGISTRY}/ca-orchestrator:${TAG}"
+export ORDERER_IMAGE="${REGISTRY}/orderer:${TAG}"
+export SIGNER_IMAGE="${REGISTRY}/ca-signer:${TAG}"
+export SOAS_IMAGE="${REGISTRY}/ca-soas:${TAG}"
+export SOAU_IMAGE="${REGISTRY}/ca-soau:${TAG}"
+export SOI_IMAGE="${REGISTRY}/ca-soi:${TAG}"
 ```
 
 Specify a service account name:
 This account will be used to configure your Gospel cluster
-```
+
+```shell script
 export INSTALLER_SERVICE_ACCOUNT="${APP_INSTANCE_NAME}-sa"
+```
+
+Create the service account:
+
+```shell script
+kubectl create serviceaccount ${INSTALLER_SERVICE_ACCOUNT} --namespace ${NAMESPACE}
+```
+
+Grant the service account permission to create API objects in your Kubernetes cluster:
+```shell script
+kubectl create clusterrolebinding gospel-installer-role-binding --clusterrole=cluster-admin --serviceaccount=${NAMESPACE}:${INSTALLER_SERVICE_ACCOUNT}
 ```
 
 #### Expand the manifest template
@@ -165,43 +191,56 @@ export INSTALLER_SERVICE_ACCOUNT="${APP_INSTANCE_NAME}-sa"
 Use `helm template` to expand the template. We recommend that you save the
 expanded manifest file for future updates to the application.
 
-```shell
+```shell script
 helm template chart/gospel-technology \
-  --name $APP_INSTANCE_NAME \ 
-  --namespace $NAMESPACE \
+  --name=$APP_INSTANCE_NAME \
+  --namespace=$NAMESPACE \
   --set frontend.image=$FRONTEND_IMAGE \
   --set backend.image=$BACKEND_IMAGE \
-  --set controller.serviceAccount=$INSTALLER_SERVICE_ACCOUNT > "${APP_INSTANCE_NAME}_manifest.yaml"
+  --set chaincode.image=$CHAINCODE_IMAGE \
+  --set dataImporter.image=$DATAIMPORTER_IMAGE \
+  --set endorsingPeer.image=$ENDORSING_PEER_IMAGE \
+  --set gospelBackend.image=$GOSPEL_BACKEND_IMAGE \
+  --set keystore.image=$KEYSTORE_IMAGE \
+  --set nginx.image=$NGINX_IMAGE \
+  --set orchestrator.image=$ORCHESTRATOR_IMAGE \
+  --set orderer.image=$ORDERER_IMAGE \
+  --set signer.image=$SIGNER_IMAGE \
+  --set soas.image=$SOAS_IMAGE \
+  --set soau.image=$SOAU_IMAGE \
+  --set soi.image=$SOI_IMAGE \
+  --set installer.serviceAccount=$INSTALLER_SERVICE_ACCOUNT > "${APP_INSTANCE_NAME}_manifest.yaml"
 ```
 
 #### Apply the manifest to your Kubernetes cluster
 
 Use `kubectl` to apply the manifest to your Kubernetes cluster:
 
-```shell
+```shell script
 kubectl apply -f "${APP_INSTANCE_NAME}_manifest.yaml" --namespace "${NAMESPACE}"
 ```
 
 #### View the app in the Google Cloud Console
+By default, the application is exposed externally. To get the GCP Console URL for your installer, run the following command:
 
-To get the GCP Console URL for your installer, run the following command:
-
-```shell
+```shell script
 echo "https://console.cloud.google.com/kubernetes/application/${ZONE}/${CLUSTER}/${NAMESPACE}/${APP_INSTANCE_NAME}"
 ```
 
-To view the installer, open the URL in your browser.
+Optionally, you may use the flag
 
-# Using the Gospel Installer User Interface
-
-By default, the application is not exposed externally. To get access to the Gospel UI, run the following command:
-
-```bash
-kubectl port-forward --namespace $NAMESPACE svc/$APP_INSTANCE_NAME-gospel-technology	
- 8080:80
+```shell script
+  --set publicIP=false
 ```
 
-and then go to the address `127.0.0.1:8080` in your web browser
+in the `helm template` command to ensure that the installer runs with a ClusterIP, which will not be exposed to the outside world.
+In this scenario, to get access to the Gospel UI, run the following command:
+
+```shell script
+kubectl port-forward --namespace $NAMESPACE svc/$APP_INSTANCE_NAME 8080:80
+```
+
+and then go to the address `127.0.0.1:8080` in your web browser.
 
 # Basic Usage
 
@@ -247,7 +286,7 @@ Please contact your Gospel account manager for more details on the release cycle
 
 Set your installation name and Kubernetes namespace:
 
-```shell
+```shell script
 export APP_INSTANCE_NAME=gospel-technology-1
 export NAMESPACE=gospel
 ```
@@ -261,13 +300,13 @@ installation.
 
 Run `kubectl` on the expanded manifest file:
 
-```shell
+```shell script
 kubectl delete -f ${APP_INSTANCE_NAME}_manifest.yaml --namespace $NAMESPACE
 ```
 
 Otherwise, delete the resources using types and a label:
 
-```shell
+```shell script
 kubectl delete application,statefulset,service,pvc,secret \
   --namespace $NAMESPACE \
   --selector app.kubernetes.io/name=$APP_INSTANCE_NAME
@@ -282,7 +321,7 @@ installations from accidentally deleting stateful data.
 To remove the PersistentVolumeClaims with their attached persistent disks, run
 the following `kubectl` commands:
 
-```shell
+```shell script
 for pv in $(kubectl get pvc --namespace $NAMESPACE \
   --selector app.kubernetes.io/name=$APP_INSTANCE_NAME \
   --output jsonpath='{.items[*].spec.volumeName}');
@@ -300,6 +339,6 @@ kubectl delete persistentvolumeclaims \
 Optionally, if you don't need the deployed application or the GKE cluster,
 delete the cluster using this command:
 
-```
+```shell script
 gcloud container clusters delete "$CLUSTER" --zone "$ZONE"
 ```
