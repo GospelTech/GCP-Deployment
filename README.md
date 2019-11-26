@@ -145,6 +145,7 @@ for the application. In most cases, you can use the `default` namespace, but in 
 ```shell script
 export APP_INSTANCE_NAME=gospel-technology-1
 export NAMESPACE=gospel
+kubectl create namespace ${NAMESPACE}
 ```
 
 Configure container images:
@@ -193,23 +194,23 @@ expanded manifest file for future updates to the application.
 
 ```shell script
 helm template chart/gospel-technology \
-  --name=$APP_INSTANCE_NAME \
-  --namespace=$NAMESPACE \
-  --set frontend.image=$FRONTEND_IMAGE \
-  --set backend.image=$BACKEND_IMAGE \
-  --set chaincode.image=$CHAINCODE_IMAGE \
-  --set dataImporter.image=$DATAIMPORTER_IMAGE \
-  --set endorsingPeer.image=$ENDORSING_PEER_IMAGE \
-  --set gospelBackend.image=$GOSPEL_BACKEND_IMAGE \
-  --set keystore.image=$KEYSTORE_IMAGE \
-  --set nginx.image=$NGINX_IMAGE \
-  --set orchestrator.image=$ORCHESTRATOR_IMAGE \
-  --set orderer.image=$ORDERER_IMAGE \
-  --set signer.image=$SIGNER_IMAGE \
-  --set soas.image=$SOAS_IMAGE \
-  --set soau.image=$SOAU_IMAGE \
-  --set soi.image=$SOI_IMAGE \
-  --set installer.serviceAccount=$INSTALLER_SERVICE_ACCOUNT > "${APP_INSTANCE_NAME}_manifest.yaml"
+--name=$APP_INSTANCE_NAME \
+--namespace=$NAMESPACE \
+--set frontend.image=$FRONTEND_IMAGE \
+--set backend.image=$BACKEND_IMAGE \
+--set chaincode.image=$CHAINCODE_IMAGE \
+--set dataImporter.image=$DATAIMPORTER_IMAGE \
+--set endorsingPeer.image=$ENDORSING_PEER_IMAGE \
+--set gospelBackend.image=$GOSPEL_BACKEND_IMAGE \
+--set keystore.image=$KEYSTORE_IMAGE \
+--set nginx.image=$NGINX_IMAGE \
+--set orchestrator.image=$ORCHESTRATOR_IMAGE \
+--set orderer.image=$ORDERER_IMAGE \
+--set signer.image=$SIGNER_IMAGE \
+--set soas.image=$SOAS_IMAGE \
+--set soau.image=$SOAU_IMAGE \
+--set soi.image=$SOI_IMAGE \
+--set installer.serviceAccount=$INSTALLER_SERVICE_ACCOUNT > "${APP_INSTANCE_NAME}_manifest.yaml"
 ```
 
 #### Apply the manifest to your Kubernetes cluster
