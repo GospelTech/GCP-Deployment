@@ -151,7 +151,7 @@ kubectl create namespace ${NAMESPACE}
 Configure container images:
 
 ```shell script
-TAG=5.0
+TAG=5.1
 REGISTRY="marketplace.gcr.io/gospel-technology/gospel-technology"
 export FRONTEND_IMAGE="${REGISTRY}:${TAG}"
 export BACKEND_IMAGE="${REGISTRY}/gospel-installer-backend:${TAG}"
