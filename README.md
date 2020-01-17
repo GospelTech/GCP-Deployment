@@ -184,7 +184,7 @@ kubectl create serviceaccount ${INSTALLER_SERVICE_ACCOUNT} --namespace ${NAMESPA
 
 Grant the service account permission to create API objects in your Kubernetes cluster:
 ```shell script
-kubectl create clusterrolebinding gospel-installer-role-binding --clusterrole=cluster-admin --serviceaccount=${NAMESPACE}:${INSTALLER_SERVICE_ACCOUNT}
+kubectl create clusterrolebinding gospel-installer-role-binding-${APP_INSTANCE_NAME} --clusterrole=cluster-admin --serviceaccount=${NAMESPACE}:${INSTALLER_SERVICE_ACCOUNT}
 ```
 
 #### Expand the manifest template
