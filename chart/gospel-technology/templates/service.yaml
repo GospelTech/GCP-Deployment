@@ -1,21 +1,23 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "gospel-technology.fullname" . }}
+  name: {{ .Release.Name }}
   labels:
-{{ include "gospel-technology.labels" . | indent 4 }}
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/component: gospel-installer
 spec:
   ports:
-    - name: {{.Chart.Name}}-frontend-http
+    - name: {{ .Release.Name }}-frontend-http
       port: {{ .Values.frontendService.httpPort }}
       targetPort: 80
       protocol: TCP
-    - name: {{.Chart.Name}}-frontend-https
+    - name: {{ .Release.Name }}-frontend-https
       port: {{ .Values.frontendService.httpsPort }}
       targetPort: 443
       protocol: TCP
   selector:
-{{ include "gospel-technology.labels" . | indent 4 }}
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/component: gospel-installer
   {{ if .Values.publicIp.available }}
   type: LoadBalancer
   {{ else }}
