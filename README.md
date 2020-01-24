@@ -192,7 +192,7 @@ kubectl create clusterrolebinding gospel-installer-role-binding-${APP_INSTANCE_N
 Use `helm template` to expand the template. We recommend that you save the
 expanded manifest file for future updates to the application.
 
-There is a subtle difference between the usage of `helm template` in Helm v2 and Helm v3- the name of the chart is a positional argument in Helm v3.
+There is a subtle difference between the usage of `helm template` in Helm v2 and Helm v3- the release name is a positional argument in Helm v3.
 Check which version you are running:
 ```shell script
 helm version
