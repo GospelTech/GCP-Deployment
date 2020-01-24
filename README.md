@@ -192,6 +192,35 @@ kubectl create clusterrolebinding gospel-installer-role-binding-${APP_INSTANCE_N
 Use `helm template` to expand the template. We recommend that you save the
 expanded manifest file for future updates to the application.
 
+There is a subtle difference between the usage of `helm template` in Helm v2 and Helm v3- the release name is a positional argument in Helm v3.
+Check which version you are running:
+```shell script
+helm version
+```
+and then run the appropriate code block below:
+
+**Helm v3:**
+```shell script
+helm template $APP_INSTANCE_NAME chart/gospel-technology \
+--namespace=$NAMESPACE \
+--set frontend.image=$FRONTEND_IMAGE \
+--set backend.image=$BACKEND_IMAGE \
+--set chaincode.image=$CHAINCODE_IMAGE \
+--set dataImporter.image=$DATAIMPORTER_IMAGE \
+--set endorsingPeer.image=$ENDORSING_PEER_IMAGE \
+--set gospelBackend.image=$GOSPEL_BACKEND_IMAGE \
+--set keystore.image=$KEYSTORE_IMAGE \
+--set nginx.image=$NGINX_IMAGE \
+--set orchestrator.image=$ORCHESTRATOR_IMAGE \
+--set orderer.image=$ORDERER_IMAGE \
+--set signer.image=$SIGNER_IMAGE \
+--set soas.image=$SOAS_IMAGE \
+--set soau.image=$SOAU_IMAGE \
+--set soi.image=$SOI_IMAGE \
+--set installer.serviceAccount=$INSTALLER_SERVICE_ACCOUNT > "${APP_INSTANCE_NAME}_manifest.yaml"
+```
+
+**Helm v2:** 
 ```shell script
 helm template chart/gospel-technology \
 --name=$APP_INSTANCE_NAME \
