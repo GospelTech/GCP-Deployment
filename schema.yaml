@@ -18,6 +18,8 @@ properties:
     x-google-marketplace:
       type: SERVICE_ACCOUNT
       serviceAccount:
+        description: >
+          Cluster Admin Role for creating helm charts for Gospel installer
         roles:
           - type: ClusterRole
             rulesType: PREDEFINED
